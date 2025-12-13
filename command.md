@@ -1,0 +1,110 @@
+### Deploy-applications through Argocd
+
+project overview
+
+
+
+project perequisite:
+
+
+Tools stack:
+
+project workflow
+What thr project Does:
+
+--Installement of argocd
+--Application deployment using argocd
+-- Roleback to different working version using argocd
+
+
+
+
+1. Create an EKS Cluster using this command:
+
+# Create EKS cluster
+  eksctl create cluster --name eks-cluster-110 --node-type t2.small --nodes 2 --nodes-min 2 --nodes-max 3 --region eu-west-2
+
+
+in this project ilearnt how to install ArgoCD on Kubernetes, deploy an application, and rollback to a previous version using the Web UI.
+
+ArgoCD is a powerful GitOps continuous delivery tool for Kubernetes, and in this step-by-step project ,i will cover:
+- Installing ArgoCD on a Kubernetes cluster
+- Deploying an application using ArgoCD
+- Performing a rollback to a previous version (CLI & Web UI methods)
+
+## By the end of this project i learnt  hands-on knowledge of how to manage Kubernetes deployments with GitOps using ArgoCD.
+
+  eksctl create cluster \
+  --name eks-cluster-110 \
+  --version 1.29 \
+  --region eu-west-2 \
+  --nodegroup-name ng-1 \
+  --node-type t2.small \
+  --nodes 2 \
+  --nodes-min 1 \
+  --nodes-max 3
+
+
+# Get EKS Cluster service
+eksctl get cluster --name eks-cluster-110 --region eu-west-2
+
+<img width="2222" height="258" alt="Image" src="https://github.com/user-attachments/assets/1dfc2873-aabd-4c92-b537-58f2200726ce" />
+ 
+ # Update eks kubeconfig once k8s cluster is installed successfully
+aws eks update-kubeconfig --name eks-cluster-110
+
+<img width="2184" height="122" alt="Image" src="https://github.com/user-attachments/assets/203aa32a-f387-4b7a-970d-24192907571a" />
+
+# create argocd namespace
+
+
+1. kubectl create namespace argocd
+
+# install argocd from argocd repository 
+
+2. kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+<img width="1846" height="492" alt="Image" src="https://github.com/user-attachments/assets/851f3845-6ace-4bb1-9bb4-7e073fb73a25" />
+
+
+# kubectl get pods -n argocd
+kubectl get pods -n argocd
+
+<img width="1894" height="418" alt="Image" src="https://github.com/user-attachments/assets/b7643c38-225e-4e75-939d-7518f90df65e" />
+
+# then get argocd service
+kubectl get svc -n argocd
+
+<img width="2156" height="772" alt="Image" src="https://github.com/user-attachments/assets/cd52302a-129f-4973-9c98-30ed162960ce" />
+
+# then get argocd from the webbrowser by edit the service of LoadBalancer
+kubectl get edit svc argocd-server -n argocd
+
+# change it to clusterIP to LoadBalancer
+
+#then run
+
+kubectl get svc -n argocd
+
+<img width="2170" height="788" alt="Image" src="https://github.com/user-attachments/assets/12007782-cbeb-42c9-ba9d-d0237da67fff" />
+
+# copy the loadbalancer endpoints and take to the browser
+a3b8eedf3068e47138671446a49e2078-2029049580.eu-west-2.elb.amazonaws.com
+
+# on the browser
+
+<img width="2276" height="1556" alt="Image" src="https://github.com/user-attachments/assets/5bc79605-f1b6-4fc0-ab8d-bee945c25024" />
+
+# argocd GUI
+
+<img width="2144" height="1540" alt="Image" src="https://github.com/user-attachments/assets/f96c4278-f341-4368-8854-93886a8d3682" />
+
+# username is 
+admin
+# get argocd password
+
+- Get ArgoCD default password
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+# login to the argocd
+<img width="2580" height="1436" alt="Image" src="https://github.com/user-attachments/assets/e96165e8-8391-4256-9802-cd9bda8094c1" />
