@@ -108,3 +108,49 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 # login to the argocd
 <img width="2580" height="1436" alt="Image" src="https://github.com/user-attachments/assets/e96165e8-8391-4256-9802-cd9bda8094c1" />
+
+<img width="2606" height="1508" alt="Image" src="https://github.com/user-attachments/assets/70a8d1cf-3258-414e-aba4-06a950cfc6bc" />
+
+<img width="2544" height="1532" alt="Image" src="https://github.com/user-attachments/assets/15d93d44-f509-4c5b-b0c7-6331f47e82f2" />
+
+## Now lets check the terminal at the default namespace
+
+kubectl get pods
+
+kubectl get pods
+NAME                     READY   STATUS    RESTARTS   AGE
+pyapp-7ccc494bbd-9fzv5   1/1     Running   0          16m
+pyapp-7ccc494bbd-llfj6   1/1     Running   0          16m
+pyapp-7ccc494bbd-rc7xg   1/1     Running   0          16m
+
+
+# lets also checked the service object
+kubectl get svc
+
+kubectl get svc
+NAME            TYPE           CLUSTER-IP      EXTERNAL-IP                                                               PORT(S)        AGE
+kubernetes      ClusterIP      10.100.0.1      <none>                                                                    443/TCP        82m
+pyapp-service   LoadBalancer   10.100.168.29   a6fbf8f936c0d4999b52db71cd07bec0-1865929378.eu-west-2.elb.amazonaws.com   80:31051/TCP   18m
+
+now access the pyappservice and put into the browser from the load balancer
+
+
+# view on the browser
+
+
+<img width="2446" height="1386" alt="Image" src="https://github.com/user-attachments/assets/f7f4a439-60f6-4d4f-92b8-d308ef04af33" />
+
+
+
+
+# now after we refresh argocd it will detect the changes
+
+# now run 
+kubectl get pods
+
+
+# to delete cluster
+
+eksctl delete cluster --name eks-cluster-110
+
+
