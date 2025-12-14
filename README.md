@@ -156,6 +156,11 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 <img width="2544" height="1532" alt="Image" src="https://github.com/user-attachments/assets/15d93d44-f509-4c5b-b0c7-6331f47e82f2" />
 
+
+## run apply on the termina;l 
+
+kubectl apply -f deployment.yaml
+
 ## Now lets check the terminal at the default namespace
 
 kubectl get pods
