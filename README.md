@@ -52,9 +52,11 @@ $ docker build -t $docker_username/deploy-react-kubernetes .
 
 # ##### Now inside the dockerfile created
 
- CMD ["node","server.js"]
+ CMD ["npm","start"]
 
+## test the application locally
 
+docker run -p 8000:8000 good777lord/pyapplication:v1
 ## Tools stack:
 
 project workflow
